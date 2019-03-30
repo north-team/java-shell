@@ -21,7 +21,7 @@ public class ShellController {
     ShellService shellService;
 
     /**
-     * shell执行json格式的字符串
+     * 通用接口:获取json格式的字符串，以shell方式执行
      *
      * @return
      */

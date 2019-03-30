@@ -28,8 +28,8 @@ public class ShellUtil {
 
     public static void main(String[] args) throws Exception {
         List<Object> stringList = new ArrayList();
-        stringList.add("ps -ef |grep java");
-        stringList.add("ifconfig");
+        stringList.add("Get-VM");
+        stringList.add("ipconfig");
         String result = execCmd(listToString(stringList, ";"), null);
 
         System.out.println(result);
@@ -55,7 +55,8 @@ public class ShellUtil {
      * @param dir 执行命令的子进程的工作目录, null 表示和当前主进程工作目录相同
      */
     public static String execCmd(String cmd, File dir) {
-        String[] cmdArray = {"sh", "-c", cmd};
+        String[] cmdLinux = {"/bin/sh", "-c", cmd};
+        String[] cmdWin = {"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",cmd};
         StringBuilder result = new StringBuilder();
 
         Process process = null;
@@ -64,14 +65,14 @@ public class ShellUtil {
 
         try {
             // 执行命令, 返回一个子进程对象（命令在子进程中执行）
-            process = Runtime.getRuntime().exec(cmdArray, null, dir);
+            process = Runtime.getRuntime().exec(cmdWin, null, dir);
 
             // 方法阻塞, 等待命令执行完成（成功会返回0）
             process.waitFor();
 
             // 获取命令执行结果, 有两个结果: 正常的输出 和 错误的输出（PS: 子进程的输出就是主进程的输入）
-            bufrIn = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
-            bufrError = new BufferedReader(new InputStreamReader(process.getErrorStream(), "UTF-8"));
+            bufrIn = new BufferedReader(new InputStreamReader(process.getInputStream(), "GB2312"));
+            bufrError = new BufferedReader(new InputStreamReader(process.getErrorStream(), "GB2312"));
 
             // 读取输出
             String line = null;

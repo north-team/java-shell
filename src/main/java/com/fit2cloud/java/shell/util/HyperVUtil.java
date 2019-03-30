@@ -1,5 +1,7 @@
 package com.fit2cloud.java.shell.util;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author : zhm
  * @description :
@@ -32,7 +34,7 @@ public class HyperVUtil {
      * @param name 虚机名字
      * @return
      */
-    public static String StartVm(String name) {
+    public static String startVm(String name) {
         return "Start-VM -Name '" + name + "'";
     }
 
@@ -42,7 +44,7 @@ public class HyperVUtil {
      * @param name 虚机名字
      * @return
      */
-    public static String SuspendVm(String name) {
+    public static String suspendVm(String name) {
         return "Suspend-VM -Name '" + name + "'";
     }
 
@@ -52,7 +54,7 @@ public class HyperVUtil {
      * @param name 虚机名字
      * @return
      */
-    public static String ResumeVm(String name) {
+    public static String resumeVm(String name) {
         return "Resume-VM -Name '" + name + "'";
     }
 
@@ -62,7 +64,7 @@ public class HyperVUtil {
      * @param name 虚机名字
      * @return
      */
-    public static String SaveVm(String name) {
+    public static String saveVm(String name) {
         return "Save-VM -Name '" + name + "'";
     }
 
@@ -72,12 +74,12 @@ public class HyperVUtil {
      * @param name 虚机名字
      * @return
      */
-    public static String StopVm(String name) {
+    public static String stopVm(String name) {
         return "Stop-VM -Name '" + name + "'";
     }
 
     public static void main(String[] args) {
-        String res=StopVm("centos7");
+        String res=stopVm("centos7");
         System.out.println(res);
     }
 }

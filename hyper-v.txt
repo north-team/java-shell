@@ -18,3 +18,24 @@ Resume-VM -Name 'centos-linux'
 
 #保存虚拟机
  Save-VM -Name 'centos-linux'
+
+#创建 VM 检查点
+
+ Get-VM -Name <VM Name> | Checkpoint-VM -SnapshotName <name for snapshot>
+
+#创建新的虚拟机
+
+ $VMName = "VMNAME"
+
+ $VM = @{
+    Name = $VMName
+    MemoryStartupBytes = 2147483648
+    Generation = 2
+    NewVHDPath = "C:\Virtual Machines\$VMName\$VMName.vhdx"
+    NewVHDSizeBytes = 53687091200
+    BootDevice = "VHD"
+    Path = "C:\Virtual Machines\$VMName"
+    SwitchName = (Get-VMSwitch).Name
+ }
+
+ New-VM @VM
