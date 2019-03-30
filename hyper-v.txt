@@ -1,0 +1,20 @@
+#获取所有虚拟机
+Get-VM
+
+#获取单个虚拟机
+Get-VM -Name 'centos-linux'
+ 
+#启动虚拟机
+Start-VM -Name 'centos-linux'
+ 
+#暂停虚拟机
+Suspend-VM -Name 'centos-linux'
+ 
+#恢复虚拟机
+Resume-VM -Name 'centos-linux'
+  
+#关闭虚拟机
+ Stop-VM -Name 'centos-linux'
+
+#保存虚拟机
+ Save-VM -Name 'centos-linux'
