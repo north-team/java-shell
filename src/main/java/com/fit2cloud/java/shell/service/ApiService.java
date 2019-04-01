@@ -1,9 +1,7 @@
 package com.fit2cloud.java.shell.service;
 
-import com.fit2cloud.java.shell.util.ExceptionUtil;
 import com.fit2cloud.java.shell.util.HyperVUtil;
 import com.fit2cloud.java.shell.util.ResultHolder;
-import com.fit2cloud.java.shell.util.ShellUtil;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +13,7 @@ public class ApiService {
             return ResultHolder.success(res);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultHolder.error(ExceptionUtil.getExceptionMsg(e));
+            return ResultHolder.error(e.toString());
         }
     }
 
@@ -29,7 +27,7 @@ public class ApiService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultHolder.error(ExceptionUtil.getExceptionMsg(e));
+            return ResultHolder.error(e.toString());
         }
     }
 
@@ -43,7 +41,7 @@ public class ApiService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultHolder.error(ExceptionUtil.getExceptionMsg(e));
+            return ResultHolder.error(e.toString());
         }
     }
 
@@ -57,7 +55,7 @@ public class ApiService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultHolder.error(ExceptionUtil.getExceptionMsg(e));
+            return ResultHolder.error(e.toString());
         }
     }
 
@@ -71,7 +69,7 @@ public class ApiService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultHolder.error(ExceptionUtil.getExceptionMsg(e));
+            return ResultHolder.error(e.toString());
         }
     }
 
@@ -85,7 +83,7 @@ public class ApiService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultHolder.error(ExceptionUtil.getExceptionMsg(e));
+            return ResultHolder.error(e.toString());
         }
     }
 

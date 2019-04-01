@@ -26,7 +26,7 @@ public class ShellUtil {
 //    3.每个命令之间用||隔开
 //    说明：||是或的意思，只有前面的命令执行失败后才去执行下一条命令，直到执行成功一条命令为止。
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception{
         List<Object> stringList = new ArrayList();
         stringList.add("Get-VM");
         stringList.add("ipconfig");
@@ -35,14 +35,14 @@ public class ShellUtil {
         System.out.println(result);
     }
 
-    public static String execCmdJsonString(String cmd, File dir) {
+    public static String execCmdJsonString(String cmd, File dir) throws Exception{
         JSONObject jsonObject = JSONObject.parseObject(cmd);
         Collection<Object> values = jsonObject.values();
         List<Object> stringList = new ArrayList(values);
         return execCmd(listToString(stringList, ";"), dir);
     }
 
-    public static String execCmdMap(Map map, File dir) {
+    public static String execCmdMap(Map map, File dir) throws Exception{
         Collection<Object> values = map.values();
         List<Object> stringList = new ArrayList<>(values);
         return execCmd(listToString(stringList, ";"), dir);
@@ -54,9 +54,9 @@ public class ShellUtil {
      * @param cmd 需要执行的命令
      * @param dir 执行命令的子进程的工作目录, null 表示和当前主进程工作目录相同
      */
-    public static String execCmd(String cmd, File dir) {
+    public static String execCmd(String cmd, File dir) throws Exception {
         String[] cmdLinux = {"/bin/sh", "-c", cmd};
-        String[] cmdWin = {"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",cmd};
+        String[] cmdWin = {"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe", cmd};
         StringBuilder result = new StringBuilder();
 
         Process process = null;
@@ -82,9 +82,6 @@ public class ShellUtil {
             while ((line = bufrError.readLine()) != null) {
                 result.append(line).append('\n');
             }
-        } catch (Exception e) {
-            LogUtil.getLogger().error("Process Error：{}", ExceptionUtil.getExceptionMsg(e));
-        } finally {
             closeStream(bufrIn);
             closeStream(bufrError);
 
@@ -92,11 +89,13 @@ public class ShellUtil {
             if (process != null) {
                 process.destroy();
             }
+            LogUtil.getLogger().info("Process execCmd:{}", "\n" + result.toString());
+            // 返回执行结果
+        } catch (Exception e) {
+            LogUtil.getLogger().error("Process Error：{}", ExceptionUtil.getExceptionMsg(e));
+            throw new Exception(e);
         }
-        LogUtil.getLogger().info("Process execCmd:{}", "\n" + result.toString());
-        // 返回执行结果
         return result.toString();
-
     }
 
     private static void closeStream(Closeable stream) {

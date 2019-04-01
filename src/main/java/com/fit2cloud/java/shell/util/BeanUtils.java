@@ -1,5 +1,6 @@
 package com.fit2cloud.java.shell.util;
 
+import com.fit2cloud.java.shell.config.FuzzyQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ReflectionUtils;
 

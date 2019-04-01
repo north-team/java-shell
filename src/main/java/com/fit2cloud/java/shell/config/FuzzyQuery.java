@@ -1,4 +1,4 @@
-package com.fit2cloud.java.shell.util;
+package com.fit2cloud.java.shell.config;
 
 import java.lang.annotation.*;
 
