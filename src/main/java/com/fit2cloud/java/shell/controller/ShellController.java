@@ -44,6 +44,7 @@ public class ShellController {
      */
     @ResponseBody
     @ApiOperation("登录接口:校验用户名密码获取相应的token")
+    @ApiImplicitParam(name = "shellToken", value = "用户token", required = false, dataType = "String",paramType="header")
     @PostMapping(value = "/login")
     public ResultHolder login(@RequestBody User user) {
         return shellService.login(user.getUsername(),user.getPassword());
