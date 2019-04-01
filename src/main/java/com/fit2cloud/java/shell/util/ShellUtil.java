@@ -26,35 +26,34 @@ public class ShellUtil {
 //    3.每个命令之间用||隔开
 //    说明：||是或的意思，只有前面的命令执行失败后才去执行下一条命令，直到执行成功一条命令为止。
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         List<Object> stringList = new ArrayList();
         stringList.add("Get-VM");
         stringList.add("ipconfig");
-        String result = execCmd(listToString(stringList, ";"), null);
+        String result = execCmd(listToString(stringList, ";"));
 
         System.out.println(result);
     }
 
-    public static String execCmdJsonString(String cmd, File dir) throws Exception{
+    public static String execCmdJsonString(String cmd, File dir) throws Exception {
         JSONObject jsonObject = JSONObject.parseObject(cmd);
         Collection<Object> values = jsonObject.values();
         List<Object> stringList = new ArrayList(values);
-        return execCmd(listToString(stringList, ";"), dir);
+        return execCmd(listToString(stringList, ";"));
     }
 
-    public static String execCmdMap(Map map, File dir) throws Exception{
+    public static String execCmdMap(Map map, File dir) throws Exception {
         Collection<Object> values = map.values();
         List<Object> stringList = new ArrayList<>(values);
-        return execCmd(listToString(stringList, ";"), dir);
+        return execCmd(listToString(stringList, ";"));
     }
 
     /**
      * 执行系统命令, 返回执行结果
      *
      * @param cmd 需要执行的命令
-     * @param dir 执行命令的子进程的工作目录, null 表示和当前主进程工作目录相同
      */
-    public static String execCmd(String cmd, File dir) throws Exception {
+    public static String execCmd(String cmd) throws Exception {
         String[] cmdLinux = {"/bin/sh", "-c", cmd};
         String[] cmdWin = {"C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe", cmd};
         StringBuilder result = new StringBuilder();
@@ -65,7 +64,7 @@ public class ShellUtil {
 
         try {
             // 执行命令, 返回一个子进程对象（命令在子进程中执行）
-            process = Runtime.getRuntime().exec(cmdWin, null, dir);
+            process = Runtime.getRuntime().exec(cmdWin);
 
             // 方法阻塞, 等待命令执行完成（成功会返回0）
             process.waitFor();
