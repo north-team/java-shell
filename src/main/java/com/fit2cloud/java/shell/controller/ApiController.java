@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
  * @date : 2019/3/28 11:29
  */
 @RestController
-@RequestMapping(value = "api")
-@Api(tags = "Hyper_V相关API接口")
+@RequestMapping(value = "api/v1")
+@Api(tags = "Hyper-V相关API接口")
 public class ApiController {
     @Autowired
     public ApiService apiService;
@@ -27,7 +27,7 @@ public class ApiController {
      */
     @ApiOperation("获取所有虚机信息")
     @TokenValid
-    @GetMapping(value = "/getAllVm")
+    @GetMapping(value = "vm/getAll")
     public ResultHolder getAllVm() {
         return apiService.getAllVm();
     }
@@ -39,7 +39,7 @@ public class ApiController {
      */
     @ApiOperation("获取单个虚机信息")
     @TokenValid
-    @GetMapping(value = "/getAVm")
+    @GetMapping(value = "vm/get")
     public ResultHolder getAVm(@RequestParam String name) {
         return apiService.getAVm(name);
     }
@@ -51,7 +51,7 @@ public class ApiController {
      */
     @ApiOperation("启动虚机")
     @TokenValid
-    @GetMapping(value = "/startVm")
+    @GetMapping(value = "vm/start")
     public ResultHolder startVm(@RequestParam String name) {
         return apiService.startVm(name);
     }
@@ -63,7 +63,7 @@ public class ApiController {
      */
     @ApiOperation("停止虚机")
     @TokenValid
-    @GetMapping(value = "/stopVm")
+    @GetMapping(value = "vm/stop")
     public ResultHolder stopVm(@RequestParam String name) {
         return apiService.stopVm(name);
     }
@@ -75,7 +75,7 @@ public class ApiController {
      */
     @ApiOperation("暂停虚机")
     @TokenValid
-    @GetMapping(value = "/suspendVm")
+    @GetMapping(value = "vm/suspend")
     public ResultHolder suspendVm(@RequestParam String name) {
         return apiService.suspendVm(name);
     }
@@ -87,7 +87,7 @@ public class ApiController {
      */
     @ApiOperation("恢复虚机")
     @TokenValid
-    @GetMapping(value = "/resumeVm")
+    @GetMapping(value = "vm/resume")
     public ResultHolder resumeVm(@RequestParam String name) {
         return apiService.resumeVm(name);
     }
