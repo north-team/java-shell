@@ -1,4 +1,4 @@
-package com.fit2cloud.java.shell.util;
+package com.fit2cloud.java.shell.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

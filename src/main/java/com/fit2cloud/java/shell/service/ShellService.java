@@ -1,7 +1,7 @@
 package com.fit2cloud.java.shell.service;
 
 import com.fit2cloud.java.shell.util.CodingUtil;
-import com.fit2cloud.java.shell.util.ResultHolder;
+import com.fit2cloud.java.shell.model.ResultHolder;
 import com.fit2cloud.java.shell.util.ShellUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

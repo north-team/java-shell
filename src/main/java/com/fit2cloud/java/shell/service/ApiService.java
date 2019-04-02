@@ -1,8 +1,7 @@
 package com.fit2cloud.java.shell.service;
 
-import com.fit2cloud.java.shell.controller.ShellController;
 import com.fit2cloud.java.shell.util.HyperVUtil;
-import com.fit2cloud.java.shell.util.ResultHolder;
+import com.fit2cloud.java.shell.model.ResultHolder;
 import com.fit2cloud.java.shell.util.ShellUtil;
 import org.springframework.stereotype.Service;
 
