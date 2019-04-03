@@ -1,6 +1,7 @@
 package com.fit2cloud.java.shell.util;
 
-import org.springframework.stereotype.Component;
+import com.alibaba.fastjson.JSONObject;
+import com.fit2cloud.java.shell.model.NewVm;
 
 /**
  * @author : zhm
@@ -15,7 +16,16 @@ public class HyperVUtil {
      * @return
      */
     public static String getAllVm() {
-        return "Get-VM";
+        return "Get-VM | select *";
+    }
+
+    /**
+     * 获取所有网络信息
+     *
+     * @return
+     */
+    public static String getAllSwitch() {
+        return "Get-VMSwitch | select *";
     }
 
     /**
@@ -25,7 +35,17 @@ public class HyperVUtil {
      * @return
      */
     public static String getAVm(String name) {
-        return "Get-VM -Name '" + name + "'";
+        return "Get-VM -Name '" + name + "' | select *";
+    }
+
+    /**
+     * 获取单个网络信息
+     *
+     * @param name 网络名字
+     * @return
+     */
+    public static String getASwitch(String name) {
+        return "Get-VMSwitch -Name '" + name + "' | select *";
     }
 
     /**
@@ -78,8 +98,25 @@ public class HyperVUtil {
         return "Stop-VM -Name '" + name + "'";
     }
 
-    public static void main(String[] args) {
-        String res=stopVm("centos7");
+    public static String createVm(String json) {
+        String shell = "mkdir -p ${path}\\${name}; " +
+                       "cp ${vhdPath}   ${path}\\${name}\\${name}.vhdx; " +
+                       "New-VM -VHDPath \"${path}\\${name}\\${name}.vhdx\" -Generation ${generation} -MemoryStartupBytes ${memoryStartupBytes} -BootDevice \"VHD\" -Name \"${name}\" -SwitchName \"${switchName}\" -Path \"${path}\" | select *";
+        return StringUtil.replace(json, shell);
+    }
+
+    public static void main(String[] args) throws Exception {
+        NewVm vm = new NewVm();
+        vm.setName("CentOS7-2");
+        vm.setVhdPath("E:\\ProgramData\\Microsoft\\Windows\\Hyper-V\\CentOS7.vhdx");
+        vm.setGeneration("1");
+        vm.setMemoryStartupBytes("1GB");
+        vm.setSwitchName("OutSwitch");
+        vm.setPath("E:\\ProgramData\\Microsoft\\Windows\\Hyper-V");
+        String s = JSONObject.toJSONString(vm);
+        String res = createVm(s);
+//        String res=ShellUtil.execCmd(createVm(s));
         System.out.println(res);
     }
+
 }

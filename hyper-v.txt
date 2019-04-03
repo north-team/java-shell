@@ -1,5 +1,8 @@
+#官方shell命令
+https://docs.microsoft.com/zh-cn/previous-versions/windows/powershell-scripting/hh848479(v%3dwps.640)
+
 #获取所有虚拟机
-Get-VM
+Get-VM | select *
 
 #获取单个虚拟机
 Get-VM -Name 'centos-linux'
@@ -25,17 +28,28 @@ Resume-VM -Name 'centos-linux'
 
 #创建新的虚拟机
 
- $VMName = "VMNAME"
+ $VMName = "CentOS7-2"
 
  $VM = @{
     Name = $VMName
-    MemoryStartupBytes = 2147483648
-    Generation = 2
-    NewVHDPath = "C:\Virtual Machines\$VMName\$VMName.vhdx"
-    NewVHDSizeBytes = 53687091200
+    MemoryStartupBytes = 1GB
+    Generation = 1
+    VHDPath = "E:\ProgramData\Microsoft\Windows\Hyper-V\$VMName.vhdx"
     BootDevice = "VHD"
-    Path = "C:\Virtual Machines\$VMName"
-    SwitchName = (Get-VMSwitch).Name
+    Path = "E:\ProgramData\Microsoft\Windows\Hyper-V\"
+    SwitchName = "OutSwitch"
  }
 
  New-VM @VM
+
+ {
+   "generation": "1",
+   "memoryStartupBytes": "1GB",
+   "name": "ssss",
+   "path": "E:/ProgramData/Microsoft/Windows/Hyper-V",
+   "switchName": "OutSwitch",
+   "vhdPath": "E:/ProgramData/Microsoft/Windows/Hyper-V/CentOS7.vhdx"
+ }
+
+#获取网络
+ Get-VMSwitch | select *

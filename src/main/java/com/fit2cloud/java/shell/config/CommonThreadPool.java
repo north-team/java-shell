@@ -1,4 +1,9 @@
-package com.fit2cloud.java.shell.util;
+package com.fit2cloud.java.shell.config;
+
+import com.fit2cloud.java.shell.util.LogUtil;
+import org.apache.poi.ss.formula.functions.T;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -18,6 +23,7 @@ import java.util.concurrent.*;
  *
  * @author kun.mo
  */
+@Configuration
 public class CommonThreadPool {
 
     private int corePoolSize = 10;
@@ -32,6 +38,8 @@ public class CommonThreadPool {
     public void init() {
         scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(corePoolSize);
         scheduledThreadPoolExecutor.setKeepAliveTime(keepAliveSeconds, TimeUnit.SECONDS);
+//        只要线程超时就销毁，包括核心线程
+//        scheduledThreadPoolExecutor.allowCoreThreadTimeOut(true);
     }
 
     @PreDestroy
@@ -64,13 +72,8 @@ public class CommonThreadPool {
      *
      * @param task 任务
      */
-    public Object submitTask(Callable task) {
-        try {
-            return scheduledThreadPoolExecutor.submit(task).get();
-        } catch (Exception e) {
-            LogUtil.getLogger().error("submitTask:{}",ExceptionUtil.getExceptionMsg(e));
-            return ExceptionUtil.getExceptionMsg(e);
-        }
+    public <T> Future<T> addTask(Callable<T> task) {
+        return scheduledThreadPoolExecutor.submit(task);
     }
 
     /**

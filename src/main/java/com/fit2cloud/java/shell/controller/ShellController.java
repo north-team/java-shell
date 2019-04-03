@@ -32,26 +32,28 @@ public class ShellController {
     @TokenValid
     @PostMapping(value = "/exec")
     public ResultHolder execute(@RequestBody String jsonString) {
-        return shellService.execute(jsonString);
+        return shellService.execCmdJson(jsonString);
     }
+
     /**
      * 登录接口:校验用户名密码获取相应的token
      *
      * @return
      */
     @ApiOperation("登录接口:校验用户名密码获取相应的token")
-    @ApiImplicitParam(name = "shellToken", value = "用户token", required = false, dataType = "String",paramType="header")
+    @ApiImplicitParam(name = "shellToken", value = "用户token", required = false, dataType = "String", paramType = "header")
     @PostMapping(value = "/login")
     public ResultHolder login(@RequestBody User user) {
-        return shellService.login(user.getUsername(),user.getPassword());
+        return shellService.login(user.getUsername(), user.getPassword());
     }
+
     /**
      * 校验接口:校验服务是否启动
      *
      * @return
      */
     @ApiOperation("校验服务接口")
-    @ApiImplicitParam(name = "shellToken", value = "用户token", required = false, dataType = "String",paramType="header")
+    @ApiImplicitParam(name = "shellToken", value = "用户token", required = false, dataType = "String", paramType = "header")
     @GetMapping(value = "/healthcheck")
     public ResultHolder validates() {
         return ResultHolder.success("Successful connection!");

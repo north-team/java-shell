@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
-import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +17,6 @@ import java.util.Map;
  * @date : 2019/3/28 12:26
  */
 public class ShellUtil {
-
 //    1.每个命令之间用;隔开 \n
 //    说明：各命令的执行给果，不会影响其它命令的执行。换句话说，各个命令都会执行，但不保证每个命令都执行成功。
 //    2.每个命令之间用&&隔开
@@ -35,14 +33,14 @@ public class ShellUtil {
         System.out.println(result);
     }
 
-    public static String execCmdJsonString(String cmd, File dir) throws Exception {
+    public static String execCmdJsonString(String cmd) throws Exception {
         JSONObject jsonObject = JSONObject.parseObject(cmd);
         Collection<Object> values = jsonObject.values();
         List<Object> stringList = new ArrayList(values);
         return execCmd(listToString(stringList, ";"));
     }
 
-    public static String execCmdMap(Map map, File dir) throws Exception {
+    public static String execCmdMap(Map map) throws Exception {
         Collection<Object> values = map.values();
         List<Object> stringList = new ArrayList<>(values);
         return execCmd(listToString(stringList, ";"));
@@ -66,9 +64,6 @@ public class ShellUtil {
             // 执行命令, 返回一个子进程对象（命令在子进程中执行）
             process = Runtime.getRuntime().exec(cmdWin);
 
-            // 方法阻塞, 等待命令执行完成（成功会返回0）
-            process.waitFor();
-
             // 获取命令执行结果, 有两个结果: 正常的输出 和 错误的输出（PS: 子进程的输出就是主进程的输入）
             bufrIn = new BufferedReader(new InputStreamReader(process.getInputStream(), "GB2312"));
             bufrError = new BufferedReader(new InputStreamReader(process.getErrorStream(), "GB2312"));
@@ -83,7 +78,8 @@ public class ShellUtil {
             }
             closeStream(bufrIn);
             closeStream(bufrError);
-
+            // 方法阻塞, 等待命令执行完成（成功会返回0）
+            int pid = process.waitFor();
             // 销毁子进程
             if (process != null) {
                 process.destroy();

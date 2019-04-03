@@ -1,6 +1,8 @@
 package com.fit2cloud.java.shell.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fit2cloud.java.shell.config.TokenValid;
+import com.fit2cloud.java.shell.model.NewVm;
 import com.fit2cloud.java.shell.service.ApiService;
 import com.fit2cloud.java.shell.model.ResultHolder;
 import io.swagger.annotations.Api;
@@ -92,5 +94,39 @@ public class ApiController {
         return apiService.resumeVm(name);
     }
 
+    /**
+     * 恢复虚机
+     *
+     * @return
+     */
+    @ApiOperation(value = "根据模板创建虚机",consumes = "application/x-www-form-urlencoded")
+    @TokenValid
+    @PostMapping(value = "vm/create")
+    public ResultHolder createVm(@RequestBody NewVm vm) {
+        return apiService.createVm(JSONObject.toJSONString(vm));
+    }
 
+    /**
+     * 获取所有网络信息
+     *
+     * @return
+     */
+    @ApiOperation("获取所有网络信息")
+    @TokenValid
+    @GetMapping(value = "switch/getAll")
+    public ResultHolder getAllSwitch() {
+        return apiService.getAllSwitch();
+    }
+
+    /**
+     * 获取单个网络信息
+     *
+     * @return
+     */
+    @ApiOperation("获取单个网络信息")
+    @TokenValid
+    @GetMapping(value = "switch/get")
+    public ResultHolder getASwitch(@RequestParam String name) {
+        return apiService.getASwitch(name);
+    }
 }
