@@ -1,16 +1,21 @@
 package com.fit2cloud.java.shell.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fit2cloud.java.shell.model.NewVm;
 import com.fit2cloud.java.shell.model.ResultHolder;
+import com.fit2cloud.java.shell.util.FileUtil;
 import com.fit2cloud.java.shell.util.HyperVUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
 
 @Service
 public class ApiService {
     @Autowired
     ShellService shellService;
+    @Autowired
+    Environment environment;
 
     public ResultHolder getAllVm() {
         try {
@@ -132,6 +137,18 @@ public class ApiService {
         try {
             String res = shellService.execCmd(HyperVUtil.getASwitch(name));
             return ResultHolder.success(res);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultHolder.error(e.toString());
+        }
+    }
+
+    public ResultHolder getAllTemplate() {
+        try {
+            String path = environment.getProperty("template.path");
+            JSONObject object = new JSONObject();
+            object = FileUtil.getAllFilePaths(new File(path), object);
+            return ResultHolder.success(object);
         } catch (Exception e) {
             e.printStackTrace();
             return ResultHolder.error(e.toString());

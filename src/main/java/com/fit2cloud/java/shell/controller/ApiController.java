@@ -129,4 +129,15 @@ public class ApiController {
     public ResultHolder getASwitch(@RequestParam String name) {
         return apiService.getASwitch(name);
     }
+    /**
+     * 获取单个网络信息
+     *
+     * @return
+     */
+    @ApiOperation("获取所有模版信息")
+    @TokenValid
+    @GetMapping(value = "template/getAll")
+    public ResultHolder getAllTemplate() {
+        return apiService.getAllTemplate();
+    }
 }
