@@ -20,7 +20,7 @@ public class ApiService {
     public ResultHolder getAllVm() {
         try {
             String res = shellService.execCmd(HyperVUtil.getAllVm());
-            return ResultHolder.success(res);
+            return ResultHolder.success(JSONObject.parse(res));
         } catch (Exception e) {
             e.printStackTrace();
             return ResultHolder.error(e.toString());
@@ -31,7 +31,7 @@ public class ApiService {
         try {
             if (!name.equals("")) {
                 String res = shellService.execCmd(HyperVUtil.getAVm(name));
-                return ResultHolder.success(res);
+                return ResultHolder.success(JSONObject.parse(res));
             } else {
                 return ResultHolder.error("传入参数不能为空！");
             }
@@ -126,7 +126,7 @@ public class ApiService {
     public ResultHolder getAllSwitch() {
         try {
             String res = shellService.execCmd(HyperVUtil.getAllSwitch());
-            return ResultHolder.success(res);
+            return ResultHolder.success(JSONObject.parse(res));
         } catch (Exception e) {
             e.printStackTrace();
             return ResultHolder.error(e.toString());
@@ -136,7 +136,7 @@ public class ApiService {
     public ResultHolder getASwitch(String name) {
         try {
             String res = shellService.execCmd(HyperVUtil.getASwitch(name));
-            return ResultHolder.success(res);
+            return ResultHolder.success(JSONObject.parse(res));
         } catch (Exception e) {
             e.printStackTrace();
             return ResultHolder.error(e.toString());

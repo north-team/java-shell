@@ -16,7 +16,7 @@ public class HyperVUtil {
      * @return
      */
     public static String getAllVm() {
-        return "Get-VM | select *";
+        return "Get-VM | select * | ConvertTo-Json";
     }
 
     /**
@@ -25,7 +25,7 @@ public class HyperVUtil {
      * @return
      */
     public static String getAllSwitch() {
-        return "Get-VMSwitch | select *";
+        return "Get-VMSwitch | select *| ConvertTo-Json";
     }
 
     /**
@@ -35,7 +35,7 @@ public class HyperVUtil {
      * @return
      */
     public static String getAVm(String name) {
-        return "Get-VM -Name '" + name + "' | select *";
+        return "Get-VM -Name '" + name + "' | select *| ConvertTo-Json";
     }
 
     /**
@@ -45,7 +45,7 @@ public class HyperVUtil {
      * @return
      */
     public static String getASwitch(String name) {
-        return "Get-VMSwitch -Name '" + name + "' | select *";
+        return "Get-VMSwitch -Name '" + name + "' | select *| ConvertTo-Json";
     }
 
     /**
@@ -101,7 +101,7 @@ public class HyperVUtil {
     public static String createVm(String json) {
         String shell = "mkdir -p ${path}\\${name}; " +
                        "cp ${vhdPath}   ${path}\\${name}\\${name}.vhdx; " +
-                       "New-VM -VHDPath \"${path}\\${name}\\${name}.vhdx\" -Generation ${generation} -MemoryStartupBytes ${memoryStartupBytes} -BootDevice \"VHD\" -Name \"${name}\" -SwitchName \"${switchName}\" -Path \"${path}\" | select *";
+                       "New-VM -VHDPath \"${path}\\${name}\\${name}.vhdx\" -Generation ${generation} -MemoryStartupBytes ${memoryStartupBytes} -BootDevice \"VHD\" -Name \"${name}\" -SwitchName \"${switchName}\" -Path \"${path}\" | select * | ConvertTo-Json";
         return StringUtil.replace(json, shell);
     }
 

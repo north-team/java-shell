@@ -71,10 +71,10 @@ public class ShellUtil {
             // 读取输出
             String line = null;
             while ((line = bufrIn.readLine()) != null) {
-                result.append(line).append('\n');
+                result.append(line);
             }
             while ((line = bufrError.readLine()) != null) {
-                result.append(line).append('\n');
+                result.append(line);
             }
             closeStream(bufrIn);
             closeStream(bufrError);
